@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Saved Recipes - Dish Recommender{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 mb-3">
+            <i class="bi bi-bookmark-fill"></i> My Saved Recipes
+        </h1>
+        <p class="lead text-muted">Your personal recipe collection</p>
+    </div>
+
+    <!-- Auth Required Message -->
+    <div id="authRequiredMessage" class="alert alert-warning text-center" style="display: none;">
+        <i class="bi bi-lock"></i> Please login to view your saved recipes.
+        <button class="btn btn-sm btn-primary ms-2" onclick="handleAuth()">Login</button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="text-center" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading your recipes...</p>
+    </div>
+
+    <!-- Saved Recipes Grid -->
+    <div id="savedRecipesSection" style="display: none;">
+        <div id="savedRecipesGrid" class="row row-cols-1 row-cols-md-3 g-4"></div>
+    </div>
+
+    <!-- No Saved Recipes -->
+    <div id="noSavedRecipes" class="text-center" style="display: none;">
+        <i class="bi bi-bookmark" style="font-size: 4rem; color: #6c757d;"></i>
+        <h4 class="mt-3">No saved recipes yet</h4>
+        <p class="text-muted">Start searching and save your favorite recipes!</p>
+        <a href="/" class="btn btn-primary mt-3">
+            <i class="bi bi-search"></i> Search Recipes
+        </a>
+    </div>
+</div>
+
+<!-- Recipe Detail Modal -->
+<div class="modal fade" id="recipeModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="recipeModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="recipeModalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="deleteRecipeBtn" onclick="deleteCurrentRecipe()">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/saved.js"></script>
+{% endblock %}

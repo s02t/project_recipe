@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+jinja2
+python-multipart
+firebase-admin
+python-dotenv
+httpx
+pydantic
+pydantic-settings
