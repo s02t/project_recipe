@@ -78,16 +78,19 @@ function displaySavedRecipes(recipes) {
     const grid = document.getElementById('savedRecipesGrid');
     grid.innerHTML = '';
     
-    recipes.forEach(recipe => {
+    recipes.forEach((recipe, index) => {
         const col = document.createElement('div');
         col.className = 'col';
+        col.style.animationDelay = `${index * 0.1}s`;
         col.innerHTML = `
             <div class="card recipe-card shadow-sm" onclick="showSavedRecipeDetail('${recipe.meal_id}', ${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
-                <img src="${recipe.meal_thumb}" class="card-img-top" alt="${recipe.meal_name}">
+                <img src="${recipe.meal_thumb}" class="card-img-top" alt="${recipe.meal_name}" loading="lazy">
                 <div class="card-body">
                     <h5 class="card-title">${recipe.meal_name}</h5>
-                    ${recipe.category ? `<span class="badge bg-primary mb-2">${recipe.category}</span>` : ''}
-                    ${recipe.area ? `<span class="badge bg-success mb-2">${recipe.area}</span>` : ''}
+                    <div class="mb-2">
+                        ${recipe.category ? `<span class="badge bg-primary me-1">${recipe.category}</span>` : ''}
+                        ${recipe.area ? `<span class="badge bg-success">${recipe.area}</span>` : ''}
+                    </div>
                     <button class="btn btn-primary btn-sm w-100 mt-2">
                         <i class="bi bi-eye"></i> View Recipe
                     </button>
@@ -98,6 +101,11 @@ function displaySavedRecipes(recipes) {
     });
     
     document.getElementById('savedRecipesSection').style.display = 'block';
+    
+    // Trigger animation
+    setTimeout(() => {
+        grid.classList.add('fade-in');
+    }, 10);
 }
 
 function showSavedRecipeDetail(mealId, recipeData) {

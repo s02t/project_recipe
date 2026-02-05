@@ -74,15 +74,16 @@ function displayRecipes(meals) {
     const grid = document.getElementById('recipesGrid');
     grid.innerHTML = '';
     
-    meals.forEach(meal => {
+    meals.forEach((meal, index) => {
         const col = document.createElement('div');
         col.className = 'col';
+        col.style.animationDelay = `${index * 0.1}s`;
         col.innerHTML = `
             <div class="card recipe-card shadow-sm" onclick="showRecipeDetail('${meal.idMeal}')">
-                <img src="${meal.strMealThumb}" class="card-img-top" alt="${meal.strMeal}">
+                <img src="${meal.strMealThumb}" class="card-img-top" alt="${meal.strMeal}" loading="lazy">
                 <div class="card-body">
                     <h5 class="card-title">${meal.strMeal}</h5>
-                    <button class="btn btn-primary btn-sm w-100">
+                    <button class="btn btn-primary btn-sm w-100 mt-2">
                         <i class="bi bi-eye"></i> View Recipe
                     </button>
                 </div>
@@ -92,6 +93,11 @@ function displayRecipes(meals) {
     });
     
     document.getElementById('resultsSection').style.display = 'block';
+    
+    // Trigger animation
+    setTimeout(() => {
+        grid.classList.add('fade-in');
+    }, 10);
 }
 
 async function showRecipeDetail(mealId) {
